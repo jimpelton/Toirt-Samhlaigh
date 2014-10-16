@@ -73,7 +73,7 @@ void FeatureEnhancement::createBoundaryContributionSlider(const GLMotif::StyleSh
     boundaryContributionSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * contributionLabel =
             new GLMotif::Label("ContributionLabel", boundaryContributionSliderRowColumn, "Contribution");
-    contributionLabel->setLabel("Contribution");
+    contributionLabel->setString("Contribution");
     boundaryContributionTextField = new GLMotif::TextField("BoundaryContributionTextField", boundaryContributionSliderRowColumn, 6);
     boundaryContributionTextField->setFieldWidth(4);
     boundaryContributionTextField->setPrecision(3);
@@ -101,7 +101,7 @@ void FeatureEnhancement::createBoundaryExponentSlider(const GLMotif::StyleSheet&
     boundaryExponentSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     boundaryExponentSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * exponentLabel = new GLMotif::Label("ExponentLabel", boundaryExponentSliderRowColumn, "Exponent");
-    exponentLabel->setLabel("Exponent      ");
+    exponentLabel->setString("Exponent      ");
     boundaryExponentTextField = new GLMotif::TextField("BoundaryExponentTextField", boundaryExponentSliderRowColumn, 6);
     boundaryExponentTextField->setFieldWidth(4);
     boundaryExponentTextField->setPrecision(3);
@@ -133,7 +133,7 @@ void FeatureEnhancement::createBoundaryFeatureEnhancement(const GLMotif::StyleSh
     boundaryRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     boundaryRowColumn->setPacking(GLMotif::RowColumn::PACK_GRID);
     GLMotif::Label * boundaryLabel = new GLMotif::Label("BoundaryLabel", boundaryRowColumn, "Boundary");
-    boundaryLabel->setLabel("Boundary");
+    boundaryLabel->setString("Boundary");
     new GLMotif::Blind("", boundaryRowColumn);
     new GLMotif::Blind("", boundaryRowColumn);
     new GLMotif::Blind("", boundaryRowColumn);
@@ -156,7 +156,7 @@ void FeatureEnhancement::createEdgeContributionSlider(const GLMotif::StyleSheet&
     edgeContributionSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     edgeContributionSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * contributionLabel = new GLMotif::Label("ContributionLabel", edgeContributionSliderRowColumn, "Contribution");
-    contributionLabel->setLabel("Contribution");
+    contributionLabel->setString("Contribution");
     edgeContributionTextField = new GLMotif::TextField("EdgeContributionTextField", edgeContributionSliderRowColumn, 6);
     edgeContributionTextField->setFieldWidth(4);
     edgeContributionTextField->setPrecision(3);
@@ -184,7 +184,7 @@ void FeatureEnhancement::createEdgeExponentSlider(const GLMotif::StyleSheet& sty
     edgeExponentSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     edgeExponentSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * exponentLabel = new GLMotif::Label("ExponentLabel", edgeExponentSliderRowColumn, "Exponent");
-    exponentLabel->setLabel("Exponent      ");
+    exponentLabel->setString("Exponent      ");
     edgeExponentTextField = new GLMotif::TextField("EdgeExponentTextField", edgeExponentSliderRowColumn, 6);
     edgeExponentTextField->setFieldWidth(4);
     edgeExponentTextField->setPrecision(3);
@@ -216,7 +216,7 @@ void FeatureEnhancement::createEdgeFeatureEnhancement(const GLMotif::StyleSheet&
     edgeRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     edgeRowColumn->setPacking(GLMotif::RowColumn::PACK_GRID);
     GLMotif::Label * edgeLabel = new GLMotif::Label("EdgeLabel", edgeRowColumn, "Edge");
-    edgeLabel->setLabel("Edge");
+    edgeLabel->setString("Edge");
     new GLMotif::Blind("", edgeRowColumn);
     new GLMotif::Blind("", edgeRowColumn);
     new GLMotif::Blind("", edgeRowColumn);
@@ -240,7 +240,7 @@ void FeatureEnhancement::createEdgeThresholdSlider(const GLMotif::StyleSheet& st
     edgeThresholdSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     edgeThresholdSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * exponentLabel = new GLMotif::Label("ThresholdLabel", edgeThresholdSliderRowColumn, "Threshold");
-    exponentLabel->setLabel("Threshold     ");
+    exponentLabel->setString("Threshold     ");
     edgeThresholdTextField = new GLMotif::TextField("EdgeThresholdTextField", edgeThresholdSliderRowColumn, 6);
     edgeThresholdTextField->setFieldWidth(4);
     edgeThresholdTextField->setPrecision(3);
@@ -269,7 +269,7 @@ void FeatureEnhancement::createSilhouetteContributionSlider(const GLMotif::Style
     silhouetteContributionSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * contributionLabel =
             new GLMotif::Label("ContributionLabel", silhouetteContributionSliderRowColumn, "Contribution");
-    contributionLabel->setLabel("Contribution");
+    contributionLabel->setString("Contribution");
     silhouetteContributionTextField
             = new GLMotif::TextField("SilhouetteContributionTextField", silhouetteContributionSliderRowColumn, 6);
     silhouetteContributionTextField->setFieldWidth(4);
@@ -298,7 +298,7 @@ void FeatureEnhancement::createSilhouetteExponentSlider(const GLMotif::StyleShee
     silhouetteExponentSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     silhouetteExponentSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * exponentLabel = new GLMotif::Label("ExponentLabel", silhouetteExponentSliderRowColumn, "Exponent");
-    exponentLabel->setLabel("Exponent      ");
+    exponentLabel->setString("Exponent      ");
     silhouetteExponentTextField = new GLMotif::TextField("SilhouetteExponentTextField", silhouetteExponentSliderRowColumn, 6);
     silhouetteExponentTextField->setFieldWidth(4);
     silhouetteExponentTextField->setPrecision(3);
@@ -331,7 +331,7 @@ void FeatureEnhancement::createSilhouetteFeatureEnhancement(const GLMotif::Style
     silhouetteRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     silhouetteRowColumn->setPacking(GLMotif::RowColumn::PACK_GRID);
     GLMotif::Label * silhouetteLabel = new GLMotif::Label("SilhouetteLabel", silhouetteRowColumn, "Silhouette");
-    silhouetteLabel->setLabel("Silhouette");
+    silhouetteLabel->setString("Silhouette");
     new GLMotif::Blind("", silhouetteRowColumn);
     new GLMotif::Blind("", silhouetteRowColumn);
     new GLMotif::Blind("", silhouetteRowColumn);

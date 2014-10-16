@@ -79,8 +79,8 @@ void MeasurementLocator::buttonPressCallback(Vrui::LocatorTool::ButtonPressCallb
 	if (numberOfPoints==2) {
 		numberOfPoints=0;
 		for (int i=0; i<3; ++i)
-			endPosition[i]->setLabel("");
-		distance->setLabel("");
+			endPosition[i]->setString("");
+		distance->setString("");
 	}
 	++numberOfPoints;
 	dragging=true;

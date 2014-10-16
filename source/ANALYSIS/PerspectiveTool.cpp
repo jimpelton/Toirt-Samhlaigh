@@ -157,14 +157,14 @@ void PerspectiveTool::GoToCallback(Misc::CallbackData* _callbackData) {
 
 void PerspectiveTool::ClearCallback(Misc::CallbackData* _callbackData) {
 	Frames.clear();
-	Xpos->setLabel("");
-	Ypos->setLabel("");
-	Zpos->setLabel("");
-	xangle->setLabel("");
-	yangle->setLabel("");
-	zangle->setLabel("");
-	scalepos->setLabel("");
-	FrameLabel->setLabel("");
+	Xpos->setString("");
+	Ypos->setString("");
+	Zpos->setString("");
+	xangle->setString("");
+	yangle->setString("");
+	zangle->setString("");
+	scalepos->setString("");
+	FrameLabel->setString("");
 	FrameButtons.clear();
 	framesSubCascade->setPopup(createFramesSubMenu());
 

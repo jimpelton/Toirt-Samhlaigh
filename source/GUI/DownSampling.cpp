@@ -45,7 +45,7 @@ void DownSampling::createSlicingScaleSlider(const GLMotif::StyleSheet& styleShee
     slicingScaleSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     slicingScaleSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * slicingScaleLabel = new GLMotif::Label("SlicingScaleLabel", slicingScaleSliderRowColumn, "Scale");
-    slicingScaleLabel->setLabel("Scale");
+    slicingScaleLabel->setString("Scale");
     slicingScaleTextField = new GLMotif::TextField("SlicingScaleTextField", slicingScaleSliderRowColumn, 6);
     slicingScaleTextField->setFieldWidth(4);
     slicingScaleTextField->setPrecision(3);
@@ -70,7 +70,7 @@ void DownSampling::createXStepSlider(const GLMotif::StyleSheet& styleSheet, GLMo
     xStepSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     xStepSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * xStepLabel = new GLMotif::Label("XStepLabel", xStepSliderRowColumn, "X");
-    xStepLabel->setLabel("X");
+    xStepLabel->setString("X");
     xStepTextField = new GLMotif::TextField("XStepTextField", xStepSliderRowColumn, 6);
     xStepTextField->setFieldWidth(4);
     xStepTextField->setPrecision(3);
@@ -95,7 +95,7 @@ void DownSampling::createYStepSlider(const GLMotif::StyleSheet& styleSheet, GLMo
     yStepSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     yStepSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * yStepLabel = new GLMotif::Label("YStepLabel", yStepSliderRowColumn, "Y");
-    yStepLabel->setLabel("Y");
+    yStepLabel->setString("Y");
     yStepTextField = new GLMotif::TextField("YStepTextField", yStepSliderRowColumn, 6);
     yStepTextField->setFieldWidth(4);
     yStepTextField->setPrecision(3);
@@ -120,7 +120,7 @@ void DownSampling::createZStepSlider(const GLMotif::StyleSheet& styleSheet, GLMo
     zStepSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     zStepSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * zStepLabel = new GLMotif::Label("ZStepLabel", zStepSliderRowColumn, "Z");
-    zStepLabel->setLabel("Z");
+    zStepLabel->setString("Z");
     zStepTextField = new GLMotif::TextField("ZStepTextField", zStepSliderRowColumn, 6);
     zStepTextField->setFieldWidth(4);
     zStepTextField->setPrecision(3);

@@ -20,6 +20,8 @@ with the OpenGL Support Library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ***********************************************************************/
 
+#include <GL/Extensions/GLARBShaderObjects.h>
+
 #ifndef GLEXTENSIONS_GLARBSHADEROBJECTS_INCLUDED
 #define GLEXTENSIONS_GLARBSHADEROBJECTS_INCLUDED
 

@@ -190,7 +190,7 @@ void Materials::createShininessSlider(const GLMotif::StyleSheet& styleSheet, GLM
     shininessSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     shininessSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * shininessLabel = new GLMotif::Label("ShininessLabel", shininessSliderRowColumn, "Shininess");
-    shininessLabel->setLabel("Shininess");
+    shininessLabel->setString("Shininess");
     shininessTextField = new GLMotif::TextField("ShininessTextField", shininessSliderRowColumn, 6);
     shininessTextField->setFieldWidth(4);
     shininessTextField->setPrecision(3);

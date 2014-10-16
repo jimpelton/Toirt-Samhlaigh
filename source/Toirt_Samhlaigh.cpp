@@ -179,7 +179,7 @@ void Toirt_Samhlaigh::alphaChangedCallback(Misc::CallbackData* callBackData) {
 /*
  * assignCreditInformation - Assign Credit Information to VRindow
  */
-void Toirt_Samhlaigh::assignCreditInformation(void) const
+/* void Toirt_Samhlaigh::assignCreditInformation(void) const
 	{
 
 	if (creditInformation)
@@ -187,7 +187,7 @@ void Toirt_Samhlaigh::assignCreditInformation(void) const
 		std::cout << "hey" << std::endl;
 
 		/* Assign Credit Information */
-		for(int i=0;i<Vrui::getNumWindows();i++)
+		/*for(int i=0;i<Vrui::getNumWindows();i++)
 			{
 			Vrui::VRWindow * window = Vrui::getWindow(i);
 			window->setCreditTitle((creditTitle).c_str());
@@ -195,7 +195,7 @@ void Toirt_Samhlaigh::assignCreditInformation(void) const
 			window->setCreditGraphics((creditGraphics).c_str());
 			}
 		}
-	} // end assignCreditInformation()
+	} */ // end assignCreditInformation()
 
 /*
  * blueChangedCallback - Change the blue.
@@ -910,7 +910,7 @@ void Toirt_Samhlaigh::display(GLContextData& glContextData) const {
  */
 void Toirt_Samhlaigh::frame(void) {
     if (firstFrame) {
-    	assignCreditInformation();
+    	// assignCreditInformation();
         firstFrame = false;
         secondFrame = true;
         scene->initialize();

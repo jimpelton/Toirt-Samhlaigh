@@ -334,14 +334,14 @@ void Animation::reset(void) {
         scene->setAnimating(false);
     }
     keyframes.clear();
-    xPositionTextField->setLabel("");
-    yPositionTextField->setLabel("");
-    zPositionTextField->setLabel("");
-    xAngleTextField->setLabel("");
-    yAngleTextField->setLabel("");
-    zAngleTextField->setLabel("");
-    scaleTextField->setLabel("");
-    keyframeTextField->setLabel("");
+    xPositionTextField->setString("");
+    yPositionTextField->setString("");
+    zPositionTextField->setString("");
+    xAngleTextField->setString("");
+    yAngleTextField->setString("");
+    zAngleTextField->setString("");
+    scaleTextField->setString("");
+    keyframeTextField->setString("");
     interpolationTimeSlider->setValue(2);
     interpolationTimeTextField->setValue(2.0);
     keyframeButtons.clear();

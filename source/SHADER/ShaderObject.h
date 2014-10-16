@@ -6,6 +6,7 @@
 
 #include <GL/gl.h>
 
+#include "GL/Extensions/GLARBShaderObjects.h"
 #include <SHADER/ShaderProgram.h>
 
 #define CHECK_GL_ERROR() CheckGLError(__FILE__, __LINE__)

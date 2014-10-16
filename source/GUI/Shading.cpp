@@ -302,7 +302,7 @@ void Shading::createNormalContributionSlider(const GLMotif::StyleSheet& styleShe
     normalRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     normalRowColumn->setPacking(GLMotif::RowColumn::PACK_GRID);
     GLMotif::Label * normalLabel = new GLMotif::Label("NormalLabel", normalRowColumn, "Normal");
-    normalLabel->setLabel("Normal");
+    normalLabel->setString("Normal");
     new GLMotif::Blind("", normalRowColumn);
     new GLMotif::Blind("", normalRowColumn);
     new GLMotif::Blind("", normalRowColumn);
@@ -312,7 +312,7 @@ void Shading::createNormalContributionSlider(const GLMotif::StyleSheet& styleShe
     normalContributionSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     normalContributionSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * contributionLabel = new GLMotif::Label("ContributionLabel", normalContributionSliderRowColumn, "Contribution");
-    contributionLabel->setLabel("Contribution");
+    contributionLabel->setString("Contribution");
     normalContributionTextField = new GLMotif::TextField("NormalContributionTextField", normalContributionSliderRowColumn, 6);
     normalContributionTextField->setFieldWidth(4);
     normalContributionTextField->setPrecision(3);
@@ -376,7 +376,7 @@ void Shading::createToneContributionSlider(const GLMotif::StyleSheet& styleSheet
     toneRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     toneRowColumn->setPacking(GLMotif::RowColumn::PACK_GRID);
     GLMotif::Label * toneLabel = new GLMotif::Label("ToneLabel", toneRowColumn, "Tone");
-    toneLabel->setLabel("Tone");
+    toneLabel->setString("Tone");
     new GLMotif::Blind("", toneRowColumn);
     new GLMotif::Blind("", toneRowColumn);
     new GLMotif::Blind("", toneRowColumn);
@@ -386,7 +386,7 @@ void Shading::createToneContributionSlider(const GLMotif::StyleSheet& styleSheet
     toneContributionSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     toneContributionSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * contributionLabel = new GLMotif::Label("ContributionLabel", toneContributionSliderRowColumn, "Contribution");
-    contributionLabel->setLabel("Contribution");
+    contributionLabel->setString("Contribution");
     toneContributionTextField = new GLMotif::TextField("ToneContributionTextField", toneContributionSliderRowColumn, 6);
     toneContributionTextField->setFieldWidth(4);
     toneContributionTextField->setPrecision(3);
@@ -442,7 +442,7 @@ void Shading::createToonContributionSlider(const GLMotif::StyleSheet& styleSheet
     toonRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     toonRowColumn->setPacking(GLMotif::RowColumn::PACK_GRID);
     GLMotif::Label * toonLabel = new GLMotif::Label("ToonLabel", toonRowColumn, "Toon");
-    toonLabel->setLabel("Toon");
+    toonLabel->setString("Toon");
     new GLMotif::Blind("", toonRowColumn);
     new GLMotif::Blind("", toonRowColumn);
     new GLMotif::Blind("", toonRowColumn);
@@ -452,7 +452,7 @@ void Shading::createToonContributionSlider(const GLMotif::StyleSheet& styleSheet
     toonContributionSliderRowColumn->setOrientation(GLMotif::RowColumn::HORIZONTAL);
     toonContributionSliderRowColumn->setPacking(GLMotif::RowColumn::PACK_TIGHT);
     GLMotif::Label * contributionLabel = new GLMotif::Label("ContributionLabel", toonContributionSliderRowColumn, "Contribution");
-    contributionLabel->setLabel("Contribution");
+    contributionLabel->setString("Contribution");
     toonContributionTextField = new GLMotif::TextField("ToonContributionTextField", toonContributionSliderRowColumn, 6);
     toonContributionTextField->setFieldWidth(4);
     toonContributionTextField->setPrecision(3);
