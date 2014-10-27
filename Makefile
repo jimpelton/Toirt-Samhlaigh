@@ -1,5 +1,5 @@
 # Set the Vrui installation directory:
-VRUIDIR = /opt/local/Vrui-1.0
+VRUIDIR = $(HOME)/opt/Vrui-3.1
 # Specify the main target
 TARGET = Toirt_Samhlaigh
 # Default build type
@@ -16,14 +16,14 @@ FRAMEWORKS =
 # The next blocks change some variables depending on the build type
 ifeq ($(TYPE),debug)
   # Build debug version of the applications, using the debug version of Vrui:
-  include $(VRUIDIR)/etc/Vrui.debug.makeinclude
+  include $(VRUIDIR)/share/Vrui.debug.makeinclude
   CFLAGS += -g2 -O0
   LFLAGS += 
 endif
 
 ifeq ($(TYPE), release)
   # Build release version of the applications, using the release version of Vrui:
-  include $(VRUIDIR)/etc/Vrui.makeinclude
+  include $(VRUIDIR)/share/Vrui.makeinclude
   CFLAGS += -g0 -O3
   LFLAGS += 
 endif
