@@ -6,6 +6,8 @@
  * Copyright: 2007
  */
 #include <cfloat>
+#include <chrono>
+#include <cstdio>
 
 #include <DATA/Volume.h>
 #include <DATASTRUCTURE/BoundingBox.h>
@@ -64,6 +66,10 @@ Volume::~Volume() {
  * calculateGradient
  */
 void Volume::calculateGradient(void) {
+    using namespace std::chrono;
+    duration<double, std::milli> start = duration_cast< milliseconds > (
+            high_resolution_clock::now().time_since_epoch());
+
     int depth = getDepth();
     int height = getHeight();
     int width = getWidth();
@@ -92,6 +98,9 @@ void Volume::calculateGradient(void) {
             } // end for
         } // end for
     } // end for
+    duration<double, std::milli> durr = duration_cast< milliseconds > (
+            high_resolution_clock::now().time_since_epoch()) - start;
+    printf("Time (calculateGradient): %.2f\n", durr.count());
 } // end calculateGradient()
 
 /*
@@ -106,6 +115,9 @@ void Volume::calculateGradient(void) {
  * return - int
  */
 int Volume::calculateMaximum(int column, int row, int slab, int width, int height, int depth) {
+    using namespace std::chrono;
+    duration<double, std::milli> start = duration_cast< milliseconds > (
+            high_resolution_clock::now().time_since_epoch());
     int maximum = 0;
     int w = getWidth();
     int h = getHeight();
@@ -120,6 +132,9 @@ int Volume::calculateMaximum(int column, int row, int slab, int width, int heigh
             } // end for
         } // end for
     } // end for
+    duration<double, std::milli> durr = duration_cast< milliseconds > (
+            high_resolution_clock::now().time_since_epoch()) - start;
+    printf("Time (calculateGradient): %.2f\n", durr.count());
     return maximum;
 } // end calculateMaximum()
 
@@ -135,6 +150,9 @@ int Volume::calculateMaximum(int column, int row, int slab, int width, int heigh
  * return - int
  */
 int Volume::calculateMinimum(int column, int row, int slab, int width, int height, int depth) {
+    using namespace std::chrono;
+    duration<double, std::milli> start = duration_cast< milliseconds > (
+            high_resolution_clock::now().time_since_epoch());
     int minimum = 255;
     int w = getWidth();
     int h = getHeight();
@@ -149,6 +167,9 @@ int Volume::calculateMinimum(int column, int row, int slab, int width, int heigh
             } // end for
         } // end for
     } // end for
+    duration<double, std::milli> durr = duration_cast< milliseconds > (
+            high_resolution_clock::now().time_since_epoch()) - start;
+    printf("Time (calculateGradient): %.2f\n", durr.count());
     return minimum;
 } // end calculateMinimum()
 
