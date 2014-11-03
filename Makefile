@@ -1,5 +1,5 @@
 # Set the Vrui installation directory:
-VRUIDIR = /opt/vrui/Vrui-3.1-002
+VRUIDIR = $(HOME)/opt/Vrui-3.1
 # Specify the main target
 TARGET = Toirt_Samhlaigh
 # Default build type
