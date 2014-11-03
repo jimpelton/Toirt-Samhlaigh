@@ -1,9 +1,9 @@
 # Set the Vrui installation directory:
-VRUIDIR = /opt/vrui/Vrui-3.1-002
+VRUIDIR = /opt/vrui/debug/Vrui-3.1-002
 # Specify the main target
 TARGET = Toirt_Samhlaigh
 # Default build type
-TYPE = release
+TYPE = debug
 # Which directories contain source files
 DIRS = source source/ANALYSIS source/COLORMAP source/DATA source/DATASTRUCTURE source/GRAPHIC source/GUI source/IO source/MATH source/SHADER source/UTILITY
 # Which libraries are linked
