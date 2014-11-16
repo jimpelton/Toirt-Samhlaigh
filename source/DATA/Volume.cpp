@@ -13,6 +13,8 @@
 #include <DATASTRUCTURE/BoundingBox.h>
 #include <UTILITY/Stringify.h>
 
+#include <DebugPrint.h>
+
 /*
  *  Volume - Constructor for Volume class.
  */
@@ -66,6 +68,8 @@ Volume::~Volume() {
  * calculateGradient
  */
 void Volume::calculateGradient(void) {
+	DEBUG_PRINT_ENTER;
+
     using namespace std::chrono;
     duration<double, std::milli> start = duration_cast< milliseconds > (
             high_resolution_clock::now().time_since_epoch());
@@ -101,6 +105,8 @@ void Volume::calculateGradient(void) {
     duration<double, std::milli> durr = duration_cast< milliseconds > (
             high_resolution_clock::now().time_since_epoch()) - start;
     printf("Time (calculateGradient): %.2f\n", durr.count());
+
+    DEBUG_PRINT_LEAVE;
 } // end calculateGradient()
 
 /*

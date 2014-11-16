@@ -19,6 +19,8 @@
 #include <SHADER/ShaderObject.h>
 #include <UTILITY/Stringify.h>
 
+#include <DebugPrint.h>
+
 /*
  * OcNode - Constructor for OcNode.
  */
@@ -27,6 +29,8 @@ OcNode::OcNode(void) :
             emptyChildren(0), leaf(false), level(0), maximumLevel(-1), maximumPriorityQueueTest(false), parent(NULL),
             percentageOfEmptyVolume(0.0), ratioOfVisibility(0.1), ratioOfVisibilityTest(false), ratioOfVisibilityThreshold(1.0),
             renderingCostFunctionTest(true), renderingCost(0.2), sliceFactor(1.5), volumeBox(NULL), volumeSphere(NULL), which(-1) {
+	DEBUG_PRINT_ENTER;
+	DEBUG_PRINT_LEAVE;
 } // end OcNode()
 
 /*
@@ -38,6 +42,9 @@ OcNode::OcNode(Brick* _brick) :
     child(NULL), cost(0.0), costStructure(0.01), costRender(0.0), empty(false), emptyChildren(0), level(0), maximumLevel(-1),
             maximumPriorityQueueTest(false), parent(NULL), percentageOfEmptyVolume(0.0), ratioOfVisibility(0.1),
             ratioOfVisibilityTest(false), renderingCostFunctionTest(true), renderingCost(0.2), which(-1) {
+
+	DEBUG_PRINT_ENTER;
+
     brick = _brick;
     volume = brick->getVolume();
     ratioOfVisibilityThreshold = volume->getRatioOfVisibilityThreshold();
@@ -65,17 +72,21 @@ OcNode::OcNode(Brick* _brick) :
         displayed = true;
     }
     renderingCost = 1.0f / pow(2.0, 3.0);
+
+    DEBUG_PRINT_LEAVE;
 } // end OcNode()
 
 /*
  * ~OcNode - Destructor for OcNode.
  */
 OcNode::~OcNode(void) {
-    delete textureBox;
+    DEBUG_PRINT_ENTER;
+	delete textureBox;
     delete volumeBox;
     delete volumeSphere;
     if (child != 0)
         delete[] child;
+    DEBUG_PRINT_LEAVE;
 } // end ~OcNode()
 
 /*
@@ -86,12 +97,14 @@ OcNode::~OcNode(void) {
  * parameter dz - float
  */
 void OcNode::adjustTextureCoordinatesTraversal(float dx, float dy, float dz) {
+	DEBUG_PRINT_ENTER;
     textureBox->adjustCoordinates(dx, dy, dz);
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].adjustTextureCoordinatesTraversal(dx, dy, dz);
         } // end for
     } // end if
+    DEBUG_PRINT_LEAVE;
 } // end adjustTextureCoordinatesTraversal()
 
 /*
@@ -101,7 +114,8 @@ void OcNode::adjustTextureCoordinatesTraversal(float dx, float dy, float dz) {
  * parameter _minimum - float
  */
 void OcNode::calculateDelta(float _maximum, float _minimum) {
-    delta = 0;
+    DEBUG_PRINT_ENTER;
+	delta = 0;
     if (width < height) {
         if (height < depth) {
             delta = (fabs(_maximum - _minimum) * 1.5f) / depth;
@@ -117,6 +131,7 @@ void OcNode::calculateDelta(float _maximum, float _minimum) {
         delta = (fabs(_maximum - _minimum) * 1.5f) / width;
     } // end else
     delta *= sliceFactor;
+    DEBUG_PRINT_LEAVE;
 } // end calculateDelta()
 
 /*
@@ -125,6 +140,7 @@ void OcNode::calculateDelta(float _maximum, float _minimum) {
  * parameter alpha - float*
  */
 void OcNode::calculateEmptiness(float* alpha) {
+	DEBUG_PRINT_ENTER;
     emptyChildren = 0;
     ratioOfVisibility = 0.0f;
     float value = 0.0f;
@@ -143,6 +159,7 @@ void OcNode::calculateEmptiness(float* alpha) {
         empty = true;
     else
         empty = false;
+    DEBUG_PRINT_LEAVE;
 } // end calculateEmptiness()
 
 /*
@@ -153,6 +170,8 @@ void OcNode::calculateEmptiness(float* alpha) {
  * parameter blue - float*
  */
 void OcNode::calculateEmptiness(float* red, float* green, float* blue) {
+	DEBUG_PRINT_ENTER;
+
     emptyChildren = 0;
     ratioOfVisibility = 0.0f;
     float value = 0.0f;
@@ -174,6 +193,8 @@ void OcNode::calculateEmptiness(float* red, float* green, float* blue) {
         empty = true;
     else
         empty = false;
+
+    DEBUG_PRINT_LEAVE;
 } // end calculateEmptiness()
 
 /*
@@ -212,6 +233,8 @@ void OcNode::calculateEmptiness2_5D(float * alpha) {
  * parameter alpha - float*
  */
 void OcNode::calculatePercentageOfEmptyVolume(float* alpha) {
+	DEBUG_PRINT_ENTER;
+
     emptyChildren = 0;
     percentageOfEmptyVolume = 0.0f;
     ratioOfVisibility = 0.0f;
@@ -235,6 +258,8 @@ void OcNode::calculatePercentageOfEmptyVolume(float* alpha) {
         empty = true;
     else
         empty = false;
+
+    DEBUG_PRINT_LEAVE;
 } // end calculatePercentageOfEmptyVolume()
 
 /*
@@ -380,6 +405,8 @@ void OcNode::calculatePercentageOfEmptyVolume(float* red, float* green, float* b
  * parameter alpha - float*
  */
 void OcNode::calculateRatioOfVisibility(float* alpha) {
+	DEBUG_PRINT_ENTER;
+
     ratioOfVisibility = 0.0f;
     int w = volume->getWidth();
     int h = volume->getHeight();
@@ -392,6 +419,8 @@ void OcNode::calculateRatioOfVisibility(float* alpha) {
         } // end for
     } // end for
     ratioOfVisibility /= ((width) * (height) * (depth));
+
+    DEBUG_PRINT_LEAVE;
 } // end calculateRatioOfVisibility()
 
 /*
@@ -521,6 +550,7 @@ void OcNode::calculateRatioOfVisibility(float* red, float* green, float* blue) {
  * return - float
  */
 float OcNode::calculateSampleDistance(const Matrix4x4 * modelviewInverse, float _minimum, float _maximum) {
+	DEBUG_PRINT_ENTER;
     /*
      * Calculate the the _minimum and _maximum x-, y- or z-position of the
      * rotated bounding box.
@@ -541,6 +571,9 @@ float OcNode::calculateSampleDistance(const Matrix4x4 * modelviewInverse, float 
     }
     float sampleDistance = float(sqrt(double(point[0] * point[0] + point[1] * point[1] + point[2] * point[2])));
     delete[] point;
+
+    DEBUG_PRINT_LEAVE;
+
     return sampleDistance;
 } // end calculateSampleDistance()
 
@@ -548,16 +581,20 @@ float OcNode::calculateSampleDistance(const Matrix4x4 * modelviewInverse, float 
  * createChildren
  */
 void OcNode::createChildren(void) {
+	DEBUG_PRINT_ENTER;
     child = new OcNode[8];
     for (int i = 0; i < 8; i++) {
         child[i].setChild(level + 1, i, this, brick, maximumLevel);
     } // end for
+    DEBUG_PRINT_LEAVE;
 } // end createChildren()
 
 /*
  * drawGrid
  */
 void OcNode::drawGrid(void) {
+	DEBUG_PRINT_ENTER;
+
     glDisable(GL_LIGHTING);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     //glCallList(Box);
@@ -601,6 +638,8 @@ void OcNode::drawGrid(void) {
     glEnd();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glEnable(GL_LIGHTING);
+
+    DEBUG_PRINT_LEAVE;
 } // end drawGrid()
 
 /*
@@ -611,6 +650,7 @@ void OcNode::drawGrid(void) {
  * parameter testChildren - bool
  */
 void OcNode::drawGridTraversal(int _level, const CFrustum & cFrustum, bool testChildren) {
+	DEBUG_PRINT_ENTER;
     if (level == _level) {
         glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         drawGrid();
@@ -619,6 +659,7 @@ void OcNode::drawGridTraversal(int _level, const CFrustum & cFrustum, bool testC
             child[i].drawGridTraversal(_level, cFrustum, testChildren);
         } // end for
     } // end if
+    DEBUG_PRINT_LEAVE;
 } // end drawGridTraversal()
 
 /*
@@ -628,6 +669,7 @@ void OcNode::drawGridTraversal(int _level, const CFrustum & cFrustum, bool testC
  * parameter testChildren - bool
  */
 void OcNode::drawGridTraversal(const CFrustum & cFrustum, bool testChildren) {
+	DEBUG_PRINT_ENTER;
     /*
      if (testChildren) {
      // test the sphere first
@@ -684,6 +726,7 @@ void OcNode::drawGridTraversal(const CFrustum & cFrustum, bool testChildren) {
             } // end if
         }
     } // end if
+    DEBUG_PRINT_LEAVE;
 } // end drawGridTraversal()
 
 /*
@@ -696,6 +739,8 @@ void OcNode::drawGridTraversal(const CFrustum & cFrustum, bool testChildren) {
  */
 void OcNode::drawPreIntegratedViewAlignedSlices(const Vector4 & slicePlaneNormal, int minimumIndex, int maximumIndex,
         const Matrix4x4 * modelviewInverse) {
+	DEBUG_PRINT_ENTER;
+
     Vector4 slicePointFront(volumeBox->getCorner(minimumIndex));
     Vector4 slicePointBack(volumeBox->getCorner(minimumIndex));
     float _minimum = getMinimum(volumeBox, minimumIndex);
@@ -742,6 +787,8 @@ void OcNode::drawPreIntegratedViewAlignedSlices(const Vector4 & slicePlaneNormal
     delete[] verts;
     delete[] sFront;
     delete[] sBack;
+
+    DEBUG_PRINT_LEAVE;
 } // end drawPreIntegratedViewAlignedSlices()
 
 /*
@@ -754,6 +801,8 @@ void OcNode::drawPreIntegratedViewAlignedSlices(const Vector4 & slicePlaneNormal
  */
 void OcNode::drawShadowedViewAlignedSlices(const Vector4 & slicePlaneNormal, int minimumIndex, int maximumIndex,
         const Matrix4x4 * modelviewInverse) {
+	DEBUG_PRINT_ENTER;
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ONE);
     glEnable(GL_BLEND);
@@ -803,6 +852,7 @@ void OcNode::drawShadowedViewAlignedSlices(const Vector4 & slicePlaneNormal, int
     delete[] verts;
     delete[] sFront;
     delete[] sBack;
+    DEBUG_PRINT_LEAVE;
 } // end drawShadowedViewAlignedSlices()
 
 /*
@@ -815,6 +865,7 @@ void OcNode::drawShadowedViewAlignedSlices(const Vector4 & slicePlaneNormal, int
  */
 void OcNode::drawViewAlignedSlices(const Vector4 & slicePlaneNormal, int minimumIndex, int maximumIndex,
         const Matrix4x4 * modelviewInverse) {
+	DEBUG_PRINT_ENTER;
     Vector4 slicePoint(volumeBox->getCorner(minimumIndex));
     float _minimum = getMinimum(volumeBox, minimumIndex);
     float _maximum = getMaximum(volumeBox, maximumIndex);
@@ -850,6 +901,7 @@ void OcNode::drawViewAlignedSlices(const Vector4 & slicePlaneNormal, int minimum
     delete sliceDelta;
     delete[] verts;
     delete[] tverts;
+    DEBUG_PRINT_LEAVE;
 } // end drawViewAlignedSlices()
 
 /*
@@ -860,6 +912,7 @@ void OcNode::drawViewAlignedSlices(const Vector4 & slicePlaneNormal, int minimum
  * parameter modelviewInverse - const Matrix4x4 *
  */
 void OcNode::drawViewAlignedSlicesGPU(int minimumIndex, int maximumIndex, const Matrix4x4 * modelviewInverse) {
+	DEBUG_PRINT_ENTER;
     float _minimum = getMinimum(volumeBox, minimumIndex);
     float _maximum = getMaximum(volumeBox, maximumIndex);
     float sampleDistance = calculateSampleDistance(modelviewInverse, _minimum, _maximum);
@@ -875,6 +928,7 @@ void OcNode::drawViewAlignedSlicesGPU(int minimumIndex, int maximumIndex, const 
         glEnd();
     } // end for
     glFlush();
+    DEBUG_PRINT_LEAVE;
 } // end drawViewAlignedSlicesGPU()
 
 /*
@@ -886,7 +940,9 @@ void OcNode::drawViewAlignedSlicesGPU(int minimumIndex, int maximumIndex, const 
  * parameter modelviewInverse - const Matrix4x4 *
  */
 void OcNode::drawVolume(int minimumIndex, int maximumIndex, const Vector4 & slicePlaneNormal, const Matrix4x4 * modelviewInverse) {
+	DEBUG_PRINT_ENTER;
     drawPreIntegratedViewAlignedSlices(slicePlaneNormal, minimumIndex, maximumIndex, modelviewInverse);
+    DEBUG_PRINT_LEAVE;
 } // end drawVolume()
 
 /*
@@ -899,6 +955,7 @@ void OcNode::drawVolume(int minimumIndex, int maximumIndex, const Vector4 & slic
  */
 void OcNode::drawVolume(ShaderObject* shaderObject, int minimumIndex, int maximumIndex, const Matrix4x4 * modelviewInverse) {
     /* GPU Accelerated */
+	DEBUG_PRINT_ENTER;
     shaderObject->sendUniform1f("delta", GLfloat(delta));
     float* p;
     GLfloat* vBBox = new GLfloat[24];
@@ -922,6 +979,7 @@ void OcNode::drawVolume(ShaderObject* shaderObject, int minimumIndex, int maximu
     //drawPreIntegratedViewAlignedSlices(slicePlaneNormal, minimumIndex, maximumIndex, modelviewInverse);
     delete[] vBBox;
     delete[] tBBox;
+    DEBUG_PRINT_LEAVE;
 } // end drawVolume()
 
 /*
@@ -938,6 +996,7 @@ void OcNode::drawVolume(ShaderObject* shaderObject, int minimumIndex, int maximu
  */
 void OcNode::drawVolumeTraversal(int _level, const CFrustum & cFrustum, float* point, ShaderObject* shaderObject, int minimumIndex,
         int maximumIndex, const Matrix4x4 * modelviewInverse, bool testChildren) {
+	DEBUG_PRINT_ENTER;
     if (level == _level) {
         drawVolume(shaderObject, minimumIndex, maximumIndex, modelviewInverse);
     } else {
@@ -948,6 +1007,7 @@ void OcNode::drawVolumeTraversal(int _level, const CFrustum & cFrustum, float* p
                     modelviewInverse, testChildren);
         } // end for
     } // end if
+    DEBUG_PRINT_LEAVE;
 } // end drawVolumeTraversal()
 
 /*
@@ -963,6 +1023,7 @@ void OcNode::drawVolumeTraversal(int _level, const CFrustum & cFrustum, float* p
  */
 void OcNode::drawVolumeTraversal(const CFrustum & cFrustum, float* point, ShaderObject* shaderObject, int minimumIndex,
         int maximumIndex, const Matrix4x4 * modelviewInverse, bool testChildren) {
+	DEBUG_PRINT_ENTER;
     /*
      if (testChildren) {
      // test the sphere first
@@ -1025,6 +1086,7 @@ void OcNode::drawVolumeTraversal(const CFrustum & cFrustum, float* point, Shader
             } // end if
         }
     } // end if
+    DEBUG_PRINT_LEAVE;
 } // end drawVolumeTraversal()
 
 /*
@@ -1040,6 +1102,7 @@ void OcNode::drawVolumeTraversal(const CFrustum & cFrustum, float* point, Shader
  */
 void OcNode::drawVolumeTraversal(const CFrustum & cFrustum, float * point, int minimumIndex, int maximumIndex,
         const Vector4 & slicePlaneNormal, const Matrix4x4 * modelviewInverse, bool testChildren) {
+	DEBUG_PRINT_ENTER;
     /*
      if (testChildren) {
      // test the sphere first
@@ -1091,15 +1154,18 @@ void OcNode::drawVolumeTraversal(const CFrustum & cFrustum, float * point, int m
             } // end if
         } // end if
     } // end if
+    DEBUG_PRINT_LEAVE;
 } // end drawVolumeTraversal()
 
 /*
  * setCenter
  */
 void OcNode::setCenter(void) {
+	DEBUG_PRINT_ENTER;
     setX(float(volumeBox->getCenter(0)));
     setY(float(volumeBox->getCenter(1)));
     setZ(float(volumeBox->getCenter(2)));
+    DEBUG_PRINT_LEAVE;
 } // end setCenter()
 
 /*
@@ -1507,6 +1573,7 @@ BoundingBox* OcNode::getTextureBox(void) {
  * setTextureBox
  */
 void OcNode::setTextureBox(void) {
+	DEBUG_PRINT_ENTER;
     float* p0;
     float* p1;
     switch (which) {
@@ -1546,6 +1613,7 @@ void OcNode::setTextureBox(void) {
     textureBox = new BoundingBox(p0[0], p0[1], p0[2], p1[0], p1[1], p1[2]);
     delete[] p0;
     delete[] p1;
+    DEBUG_PRINT_LEAVE;
 } // end setTextureBox()
 
 /*
@@ -1579,6 +1647,8 @@ BoundingBox* OcNode::getVolumeBox(void) {
  * setVolumeBox
  */
 void OcNode::setVolumeBox(void) {
+	DEBUG_PRINT_ENTER;
+
     float* p0;
     float* p1;
     switch (which) {
@@ -1618,6 +1688,8 @@ void OcNode::setVolumeBox(void) {
     volumeBox = new BoundingBox(p0[0], p0[1], p0[2], p1[0], p1[1], p1[2]);
     delete[] p0;
     delete[] p1;
+
+    DEBUG_PRINT_LEAVE;
 } // end setVolumeBox()
 
 /*
@@ -1757,6 +1829,8 @@ void OcNode::maximumPriorityQueueTestTraversal(bool _maximumPriorityQueueTest) {
  * parameter alpha - float*
  */
 void OcNode::percentageOfEmptyVolumeTraversal(float* alpha) {
+	DEBUG_PRINT_ENTER;
+
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].percentageOfEmptyVolumeTraversal(alpha);
@@ -1772,6 +1846,7 @@ void OcNode::percentageOfEmptyVolumeTraversal(float* alpha) {
             ratioOfVisibility += child[i].getRatioOfVisibility();
         } // end for
     }
+    DEBUG_PRINT_LEAVE;
 } // end percentageOfEmptyVolumeTraversal()
 
 /*
@@ -1828,6 +1903,7 @@ void OcNode::percentageOfEmptyVolumeTraversal(float* red, float* green, float* b
  * parameter alpha - float*
  */
 void OcNode::ratioOfVisibilityTraversal(float* alpha) {
+	DEBUG_PRINT_ENTER;
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].ratioOfVisibilityTraversal(alpha);
@@ -1842,6 +1918,7 @@ void OcNode::ratioOfVisibilityTraversal(float* alpha) {
         } // end for
         ratioOfVisibility /= 8;
     }
+    DEBUG_PRINT_LEAVE;
 } // end ratioOfVisibilityTraversal()
 
 /*
@@ -1896,12 +1973,16 @@ void OcNode::ratioOfVisibilityTraversal(float* red, float* green, float* blue) {
  * parameter _ratioOfVisibilityTest - bool
  */
 void OcNode::ratioOfVisibilityTestTraversal(bool _ratioOfVisibilityTest) {
+	DEBUG_PRINT_ENTER;
+
     ratioOfVisibilityTest = _ratioOfVisibilityTest;
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].ratioOfVisibilityTestTraversal(_ratioOfVisibilityTest);
         } // end for
     }
+
+    DEBUG_PRINT_LEAVE;
 } // end ratioOfVisibilityTestTraversal()
 
 /*
@@ -1910,12 +1991,16 @@ void OcNode::ratioOfVisibilityTestTraversal(bool _ratioOfVisibilityTest) {
  * parameter _ratioOfVisibilityThreshold - float
  */
 void OcNode::ratioOfVisibilityThresholdTraversal(float _ratioOfVisibilityThreshold) {
+	DEBUG_PRINT_ENTER;
+
     ratioOfVisibilityThreshold = _ratioOfVisibilityThreshold;
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].ratioOfVisibilityThresholdTraversal(_ratioOfVisibilityThreshold);
         } // end for
     }
+
+    DEBUG_PRINT_LEAVE;
 } // end ratioOfVisibilityThresholdTraversal()
 
 /*
@@ -1924,12 +2009,16 @@ void OcNode::ratioOfVisibilityThresholdTraversal(float _ratioOfVisibilityThresho
  * parameter _renderingCost - float
  */
 void OcNode::renderingCostTraversal(float _renderingCost) {
+	DEBUG_PRINT_ENTER;
+
     //renderingCost = _renderingCost;
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].renderingCostTraversal(_renderingCost);
         } // end for
     }
+
+    DEBUG_PRINT_LEAVE;
 } // end renderingCostTraversal()
 
 /*
@@ -1938,12 +2027,14 @@ void OcNode::renderingCostTraversal(float _renderingCost) {
  * parameter _renderingCostFunctionTest - bool
  */
 void OcNode::renderingCostFunctionTestTraversal(bool _renderingCostFunctionTest) {
+	DEBUG_PRINT_ENTER;
     renderingCostFunctionTest = _renderingCostFunctionTest;
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].renderingCostFunctionTestTraversal(_renderingCostFunctionTest);
         } // end for
     }
+    DEBUG_PRINT_LEAVE;
 } // end renderingCostFunctionTestTraversal()
 
 /*
@@ -1952,6 +2043,8 @@ void OcNode::renderingCostFunctionTestTraversal(bool _renderingCostFunctionTest)
  * parameter alpha - float*
  */
 void OcNode::rendereringCostFuctionTraversal(float* alpha) {
+	DEBUG_PRINT_ENTER;
+
     if (!isLeaf()) {
         for (int i = 0; i < 8; i++) {
             child[i].rendereringCostFuctionTraversal(alpha);
@@ -1985,6 +2078,7 @@ void OcNode::rendereringCostFuctionTraversal(float* alpha) {
         }
         cost = std::min(level * costStructure + costRender, costToRenderChildren);
     }
+    DEBUG_PRINT_LEAVE;
 } // end rendereringCostFuctionTraversal()
 
 /*
@@ -2077,6 +2171,7 @@ void OcNode::rendereringCostFuctionTraversal2_5D(float* alpha) {
  * parameter _sliceFactor - float
  */
 void OcNode::sliceFactorTraversal(float _sliceFactor) {
+	DEBUG_PRINT_ENTER;
     sliceFactor = _sliceFactor;
     if (parent == NULL)
         calculateDelta(getMaximum(volumeBox, volumeBox->getMaximumIndex()), getMinimum(volumeBox, volumeBox->getMinimumIndex()));
@@ -2087,6 +2182,7 @@ void OcNode::sliceFactorTraversal(float _sliceFactor) {
             child[i].sliceFactorTraversal(_sliceFactor);
         } // end for
     } // end if
+    DEBUG_PRINT_LEAVE;
 } // end sliceFactorTraversal()
 
 /*
@@ -2097,6 +2193,7 @@ void OcNode::sliceFactorTraversal(float _sliceFactor) {
  */
 void OcNode::sortChildren(float * point, std::vector<ComparableOcNode> & ocNodeList) {
     // Calculate minimum distance from head position to ocNodes feature
+	DEBUG_PRINT_ENTER;
     ComparableOcNode comparableOcNode;
     comparableOcNode.maximum(); // set static variable greater to perform a maximum sort
     int i;
@@ -2119,6 +2216,7 @@ void OcNode::sortChildren(float * point, std::vector<ComparableOcNode> & ocNodeL
             i++;
         }
     }
+    DEBUG_PRINT_LEAVE;
 } // end sortChildren()
 
 /*
@@ -2152,6 +2250,7 @@ std::string OcNode::toString(void) {
  * parameter verts - Vector4*
  */
 void OcNode::viewAlignedVertex(int which, int frontIndex, const Vector4 & sp, const Vector4 & spn, Vector4* tverts, Vector4* verts) {
+	DEBUG_PRINT_ENTER;
     for (int i = 0; i < 4; i++) {
         float* p0 = volumeBox->getCorner(sequence[frontIndex][edgeIndex[(which * 4) + i][0]]);
         float* p1 = volumeBox->getCorner(sequence[frontIndex][edgeIndex[(which * 4) + i][1]]);
@@ -2183,6 +2282,7 @@ void OcNode::viewAlignedVertex(int which, int frontIndex, const Vector4 & sp, co
     /*
      * NOTE: Nothing to delete. p0, p1, t0 and t1 are pure pointers.
      */
+    DEBUG_PRINT_LEAVE;
 } // end viewAlignedVertex()
 
 /*
@@ -2199,6 +2299,7 @@ void OcNode::viewAlignedVertex(int which, int frontIndex, const Vector4 & sp, co
  */
 void OcNode::viewAlignedVertex(int which, int frontIndex, const Vector4 & spF, const Vector4 & spB, const Vector4 & spn,
         Vector4* sFront, Vector4* sBack, Vector4* verts) {
+	DEBUG_PRINT_ENTER;
     for (int i = 0; i < 4; i++) {
         float* p0 = volumeBox->getCorner(sequence[frontIndex][edgeIndex[(which * 4) + i][0]]);
         float* p1 = volumeBox->getCorner(sequence[frontIndex][edgeIndex[(which * 4) + i][1]]);
@@ -2235,6 +2336,7 @@ void OcNode::viewAlignedVertex(int which, int frontIndex, const Vector4 & spF, c
         delete p0;
         delete p1;
     } // end for
+    DEBUG_PRINT_LEAVE;
     /*
      * NOTE: Nothing to delete. p0, p1, t0 and t1 are pure pointers.
      */

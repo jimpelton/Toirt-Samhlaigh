@@ -1,5 +1,5 @@
 # Set the Vrui installation directory:
-VRUIDIR = /opt/vrui/debug/Vrui-3.1-002
+VRUIDIR = /opt/vrui/Vrui-3.1
 # Specify the main target
 TARGET = Toirt_Samhlaigh
 # Default build type
@@ -17,7 +17,7 @@ FRAMEWORKS =
 ifeq ($(TYPE),debug)
   # Build debug version of the applications, using the debug version of Vrui:
   include $(VRUIDIR)/share/Vrui.debug.makeinclude
-  CFLAGS += -g2 -O0 -std=c++11
+  CFLAGS += -g2 -O0 -std=c++11 -DDEBUG_PRINT
   LFLAGS += 
 endif
 

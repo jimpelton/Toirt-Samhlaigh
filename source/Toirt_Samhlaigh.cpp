@@ -55,6 +55,8 @@
 
 #include <Toirt_Samhlaigh.h>
 
+#include <DebugPrint.h>
+
 /* Toirt_Samhlaigh - Constructor for Toirt_Samhlaigh class.
  * 		extends Vrui::Application
  *
@@ -1069,6 +1071,8 @@ void Toirt_Samhlaigh::greenChangedCallback(Misc::CallbackData* callBackData) {
  * parameter volumeFile - const char*& volumeFile
  */
 void Toirt_Samhlaigh::initialize(void) {
+	DEBUG_PRINT_ENTER;
+
     if (volumeFile != 0) {
         IOHelper::readVolume(volumeFile, volume);
     } else if (numberOfComponents != 0) {
@@ -1160,6 +1164,8 @@ void Toirt_Samhlaigh::initialize(void) {
     maximumPriorityQueueSizeDialog = createMaximumPriorityQueueSizeDialog();
     ratioOfVisibilityThresholdDialog = createRatioOfVisibilityThresholdDialog();
     renderingCostFunctionDialog = createRenderingCostFunctionDialog();
+
+    DEBUG_PRINT_LEAVE;
 }
 
 /*
