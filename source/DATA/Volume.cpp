@@ -23,17 +23,21 @@ Volume::Volume() :
             NULL), greenVoxels(NULL), intVoxelsBase(NULL), leafSize(4), maximumPriorityQueueSize(0), numberOfComponents(0),
             ratioOfVisibilityThreshold(1.0), redByteVoxelsBase(NULL), redVoxels(NULL), sliceFactor(1.5), textureSize(32), voxels(
                     NULL) {
+                DEBUG_PRINT_ENTER;
+
     increments = new int[3];
     scale = new float[3];
     size = new int[3];
     sliceIndexDir = new int[3];
     initialize();
+    DEBUG_PRINT_LEAVE;
 } // end Volume()
 
 /*
  * ~Volume - Destructor for Volume class.
  */
 Volume::~Volume() {
+    DEBUG_PRINT_ENTER;
     voxels = NULL;
     blueVoxels = NULL;
     greenVoxels = NULL;
@@ -62,6 +66,7 @@ Volume::~Volume() {
     delete[] size;
     delete[] scale;
     delete volumeBox;
+    DEBUG_PRINT_LEAVE;
 } // end ~Volume
 
 /*
@@ -121,6 +126,7 @@ void Volume::calculateGradient(void) {
  * return - int
  */
 int Volume::calculateMaximum(int column, int row, int slab, int width, int height, int depth) {
+    DEBUG_PRINT_ENTER;
     using namespace std::chrono;
     duration<double, std::milli> start = duration_cast< milliseconds > (
             high_resolution_clock::now().time_since_epoch());
@@ -141,6 +147,7 @@ int Volume::calculateMaximum(int column, int row, int slab, int width, int heigh
     duration<double, std::milli> durr = duration_cast< milliseconds > (
             high_resolution_clock::now().time_since_epoch()) - start;
     printf("Time (calculateGradient): %.2f\n", durr.count());
+    DEBUG_PRINT_LEAVE;
     return maximum;
 } // end calculateMaximum()
 
@@ -156,6 +163,7 @@ int Volume::calculateMaximum(int column, int row, int slab, int width, int heigh
  * return - int
  */
 int Volume::calculateMinimum(int column, int row, int slab, int width, int height, int depth) {
+    DEBUG_PRINT_ENTER;
     using namespace std::chrono;
     duration<double, std::milli> start = duration_cast< milliseconds > (
             high_resolution_clock::now().time_since_epoch());
@@ -176,6 +184,7 @@ int Volume::calculateMinimum(int column, int row, int slab, int width, int heigh
     duration<double, std::milli> durr = duration_cast< milliseconds > (
             high_resolution_clock::now().time_since_epoch()) - start;
     printf("Time (calculateGradient): %.2f\n", durr.count());
+    DEBUG_PRINT_LEAVE;
     return minimum;
 } // end calculateMinimum()
 
@@ -997,6 +1006,7 @@ int Volume::nextPowerOfTwo(int n) {
  * resize
  */
 void Volume::resize(void) {
+    DEBUG_PRINT_ENTER;
     int w = 0;
     int h = 0;
     int d = 0;
@@ -1065,12 +1075,14 @@ void Volume::resize(void) {
         setIncrements(_increments);
         setVoxels(_voxels);
     }
+    DEBUG_PRINT_LEAVE;
 } // end resize()
 
 /*
  * resize
  */
 void Volume::resize(unsigned char tmpByte) {
+    DEBUG_PRINT_ENTER;
     int w = 0;
     int h = 0;
     int d = 0;
@@ -1142,6 +1154,7 @@ void Volume::resize(unsigned char tmpByte) {
         setIncrements(_increments);
         setVoxels(_voxels);
     }
+    DEBUG_PRINT_LEAVE;
 } // end resize()
 
 /*
