@@ -64,17 +64,20 @@ Volume::~Volume() {
  * calculateGradient
  */
 void Volume::calculateGradient(void) {
-    int depth = getDepth();
-    int height = getHeight();
-    int width = getWidth();
+    size_t depth = getDepth();
+    size_t height = getHeight();
+    size_t width = getWidth();
+    size_t szGrads = 4*width*height*depth; 
+
     maximumGradient = FLT_MIN;
     minimumGradient = FLT_MAX;
-    gradients = new float[4 * (width * height * depth)];
-    for (int i = 0; i < 4 * (width * height * depth); i++)
+
+    gradients = new float[szGrads];
+    for (size_t i = 0; i < szGrads; i++)
         gradients[i] = 0.0f;
-    for (int k = 1; k < depth - 1; k++) {
-        for (int j = 1; j < height - 1; j++) {
-            for (int i = 1; i < width - 1; i++) {
+    for (size_t k = 1; k < depth - 1; k++) {
+        for (size_t j = 1; j < height - 1; j++) {
+            for (size_t i = 1; i < width - 1; i++) {
                 float x = float(getVoxel(i+1 + j * width + k * (width * height))) - float(getVoxel(i-1 + j * width + k * (width * height)));
                 float y = float(getVoxel(i + (j+1) * width + k * (width * height))) - float(getVoxel(i + (j-1) * width + k * (width * height)));
                 float z = float(getVoxel(i + j * width + (k+1) * (width * height))) - float(getVoxel(i + j * width + (k-1) * (width * height)));
