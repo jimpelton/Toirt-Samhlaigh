@@ -18,6 +18,8 @@
 #include <MATH/Matrix4x4.h>
 #include <SHADER/ShaderObject.h>
 
+#include "DebugPrint.h"
+
 Brick::DataItem::DataItem(void) {
     texture3DName = 0;
     downSamplingTexture3DName = 0;
@@ -56,6 +58,7 @@ void Brick::adjustTextureCoordinates(void) {
  * return - GLuint
  */
 GLuint Brick::create3DTexture(void) const {
+    DEBUG_PRINT_ENTER; 
     unsigned char* voxels = new unsigned char[(width) * (height) * (depth)];
     int w = volume->getWidth();
     int h = volume->getHeight();
@@ -80,7 +83,11 @@ GLuint Brick::create3DTexture(void) const {
     glBindTexture(GL_TEXTURE_3D, 0);
     glDisable(GL_TEXTURE_3D);
     delete[] voxels;
+
+    DEBUG_PRINT_LEAVE;
+
     return name;
+
 } // end create3DTexture()
 
 /*
@@ -93,6 +100,7 @@ GLuint Brick::create3DTexture(int bordersize) const {
     unsigned char *voxels = new unsigned char[(width+(2*bordersize))*
                                               (height+(2*bordersize))*
                                               (depth+(2*bordersize))];
+    DEBUG_PRINT_ENTER;
 
     fill3DTexture (bordersize, voxels);
 
@@ -112,6 +120,7 @@ GLuint Brick::create3DTexture(int bordersize) const {
     glBindTexture(GL_TEXTURE_3D, 0);
     glDisable(GL_TEXTURE_3D);
     delete[] voxels;
+    DEBUG_PRINT_LEAVE;
     return name;
 } // end create3DTexture()
 
@@ -121,6 +130,7 @@ GLuint Brick::create3DTexture(int bordersize) const {
  * return - GLuint
  */
 GLuint Brick::createDownSampling3DTexture(void) const {
+    DEBUG_PRINT_ENTER;
     unsigned char* voxels = new unsigned char[width * height * depth];
     int w = volume->getWidth();
     int h = volume->getHeight();
@@ -165,6 +175,7 @@ GLuint Brick::createDownSampling3DTexture(void) const {
     glBindTexture(GL_TEXTURE_3D, 0);
     glDisable(GL_TEXTURE_3D);
     delete[] downSamplingVoxels;
+    DEBUG_PRINT_LEAVE;
     return name;
 } // end createDownSampling3DTexture()
 
@@ -174,6 +185,7 @@ GLuint Brick::createDownSampling3DTexture(void) const {
  * return - GLuint
  */
 GLuint Brick::createDownSamplingMultiComponent3DTexture(void) const {
+    DEBUG_PRINT_ENTER;
     unsigned char* voxels = new unsigned char[3 * (width) * (height) * (depth)];
     int w = volume->getWidth();
     int h = volume->getHeight();
@@ -267,6 +279,9 @@ GLuint Brick::createDownSamplingMultiComponent3DTexture(void) const {
     glBindTexture(GL_TEXTURE_3D, 0);
     glDisable(GL_TEXTURE_3D);
     delete[] downSamplingVoxels;
+
+    DEBUG_PRINT_LEAVE;
+
     return name;
 } // end createDownSamplingMultiComponent3DTexture()
 
@@ -276,6 +291,7 @@ GLuint Brick::createDownSamplingMultiComponent3DTexture(void) const {
  * return - GLuint
  */
 GLuint Brick::createMultiComponent3DTexture(void) const {
+    DEBUG_PRINT_ENTER;
     unsigned char* voxels = new unsigned char[3 * (width) * (height) * (depth)];
     int w = volume->getWidth();
     int h = volume->getHeight();
@@ -346,6 +362,7 @@ GLuint Brick::createMultiComponent3DTexture(void) const {
     glBindTexture(GL_TEXTURE_3D, 0);
     glDisable(GL_TEXTURE_3D);
     delete[] voxels;
+    DEBUG_PRINT_LEAVE;
     return name;
 } // end createMultiComponent3DTexture()
 
@@ -356,6 +373,7 @@ GLuint Brick::createMultiComponent3DTexture(void) const {
  * return - GLuint
  */
 GLuint Brick::createMultiComponent3DTexture(int bordersize) const {
+    DEBUG_PRINT_ENTER;
     unsigned char *voxels = new unsigned char[3*(width+(2*bordersize))*
                                                 (height+(2*bordersize))*
                                                 (depth+(2*bordersize))];
@@ -389,6 +407,7 @@ GLuint Brick::createMultiComponent3DTexture(int bordersize) const {
     glBindTexture(GL_TEXTURE_3D, 0);
     glDisable(GL_TEXTURE_3D);
     delete[] voxels;
+    DEBUG_PRINT_LEAVE;
     return name;
 } // end createMultiComponent3DTexture()
 
@@ -396,6 +415,7 @@ GLuint Brick::createMultiComponent3DTexture(int bordersize) const {
  * determineOcNodesToDisplay
  */
 void Brick::determineOcNodesToDisplay(void) {
+    DEBUG_PRINT_ENTER;
     ComparableOcNode comparableOcNode;
     comparableOcNode.minimum(); // use the standard less operator<
     std::priority_queue<ComparableOcNode> maximumPriorityQueue;
@@ -423,12 +443,14 @@ void Brick::determineOcNodesToDisplay(void) {
         setEmpty(true);
         ocNode->setDisplayed(false);
     }
+    DEBUG_PRINT_LEAVE;
 } // end determineOcNodesToDisplay()
 
 /*
  * drawBrick
  */
 void Brick::drawBrick(void) const {
+
     glDisable(GL_LIGHTING);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glBegin(GL_QUADS);
@@ -1227,9 +1249,11 @@ void Brick::setZStep(int zStep) {
  * parameter glContextData - GLContextData&
  */
 void Brick::initContext(GLContextData& glContextData) const {
+    DEBUG_PRINT_ENTER;
     DataItem * dataItem = new DataItem();
     glContextData.addDataItem(this, dataItem);
     initialize(dataItem);
+    DEBUG_PRINT_LEAVE;
 } // end initContext()
 
 /*
@@ -1238,6 +1262,7 @@ void Brick::initContext(GLContextData& glContextData) const {
  * parameter dataItem - DataItem *
  */
 void Brick::initialize(DataItem * dataItem) const {
+    DEBUG_PRINT_ENTER;
     if (volume->getNumberOfComponents() != 0) {
         dataItem->texture3DName = createMultiComponent3DTexture(borderSize);
         dataItem->downSamplingTexture3DName = createDownSamplingMultiComponent3DTexture();
@@ -1245,6 +1270,7 @@ void Brick::initialize(DataItem * dataItem) const {
         dataItem->texture3DName = create3DTexture(borderSize);
         dataItem->downSamplingTexture3DName = createDownSampling3DTexture();
     }
+    DEBUG_PRINT_LEAVE;
 }
 // end drawVolume()
 
